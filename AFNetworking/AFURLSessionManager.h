@@ -212,6 +212,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  Creates an `NSURLSessionDataTask` with the specified request.
+ 
+ @param request The HTTP request for the request.
+ @param responseSerializer A response seiralizer is used only for this request, exclusively.
+ @param completionHandler A block object to be executed when the task finishes. This block has no return value and takes three arguments: the server response, the response object created by that serializer, and the error that occurred, if any.
+ */
+- (NSURLSessionDataTask *)dataTaskWithRequest:(NSURLRequest *)request
+                           responseSerializer:(AFHTTPResponseSerializer *)responseSerializer
+                            completionHandler:(void (^)(NSURLResponse *response, id responseObject, NSError *error))completionHandler;
+
+/**
+ Creates an `NSURLSessionDataTask` with the specified request.
 
  @param request The HTTP request for the request.
  @param uploadProgressBlock A block object to be executed when the upload progress is updated. Note this block is called on the session queue, not the main queue.
@@ -223,6 +234,20 @@ NS_ASSUME_NONNULL_BEGIN
                              downloadProgress:(nullable void (^)(NSProgress *downloadProgress))downloadProgressBlock
                             completionHandler:(nullable void (^)(NSURLResponse *response, id _Nullable responseObject,  NSError * _Nullable error))completionHandler;
 
+/**
+ Creates an `NSURLSessionDataTask` with the specified request.
+ 
+ @param request The HTTP request for the request.
+ @param uploadProgressBlock A block object to be executed when the upload progress is updated. Note this block is called on the session queue, not the main queue.
+ @param downloadProgressBlock A block object to be executed when the download progress is updated. Note this block is called on the session queue, not the main queue.
+ @param responseSerializer A response seiralizer is used only for this request, exclusively.
+ @param completionHandler A block object to be executed when the task finishes. This block has no return value and takes three arguments: the server response, the response object created by that serializer, and the error that occurred, if any.
+ */
+- (NSURLSessionDataTask *)dataTaskWithRequest:(NSURLRequest *)request
+                               uploadProgress:(nullable void (^)(NSProgress *uploadProgress)) uploadProgressBlock
+                             downloadProgress:(nullable void (^)(NSProgress *downloadProgress)) downloadProgressBlock
+                           responseSerializer:(nullable AFHTTPResponseSerializer *)responseSerializer
+                            completionHandler:(nullable void (^)(NSURLResponse *response, id _Nullable responseObject,  NSError * _Nullable error))completionHandler;
 ///---------------------------
 /// @name Running Upload Tasks
 ///---------------------------
